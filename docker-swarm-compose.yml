@@ -5,6 +5,25 @@ version: "3.8"
 services:
   # https://github.com/docker/compose/blob/v1/docs/Compose%20file%20reference%20(legacy)/version-3.md#service-configuration-reference
 
+  otel-collector:
+    # https://hub.docker.com/r/otel/opentelemetry-collector-contrib
+    # https://opentelemetry.io/docs/collector/installation/#docker-compose
+    image: otel/opentelemetry-collector-contrib:0.116.1
+
+    deploy:
+      mode: replicated
+      replicas: 1
+
+    user: "1000"
+
+    environment:
+      # https://github.com/docker/compose/blob/v1/docs/Compose%20file%20reference%20(legacy)/version-3.md#environment
+      TZ: "Asia/Seoul"
+
+    networks:
+      monitoring-network:
+      # service-network:
+
   alloy:
     # https://hub.docker.com/r/grafana/alloy
     # https://grafana.com/docs/alloy/latest/set-up/install/docker/
